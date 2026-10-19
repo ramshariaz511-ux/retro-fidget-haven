@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RETRO ZEN // The Ultimate Anti-Stress Fidget Hub</title>
+  <meta name="description" content="Vintage, pixelated, satisfying anti-stress website packed with digital fidget toys: spinners, buttons, gears, typewriter, mechanical keyboard, wood carving, wall painting, car cleaning, window cleaning, and book page turning.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- CRT Scanline & Color Aberration Overlay -->
+  <div id="crt-scanline-overlay"></div>
+
+  <!-- ================= TOP HEADER BAR ================= -->
+  <header class="app-header">
+    <div class="header-container">
+      <!-- Brand & Title -->
+      <div class="brand-section">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <h1 class="brand-title">RETRO<span>ZEN</span> 8-BIT</h1>
+          <p class="brand-subtitle">THE TACTILE ANTI-STRESS DIGITAL FIDGET HUB</p>
+        </div>
+      </div>
+
+      <!-- Utilities: Zen Meter, Breathing Orb, Audio Controls -->
+      <div class="header-utilities">
+        <!-- Stress-o-Meter -->
+        <div class="zen-meter-box">
+          <div class="zen-meter-labels">
+            <span class="label">STRESS LEVEL:</span>
+            <span id="stress-level-value" class="value">100%</span>
+          </div>
+          <div class="zen-meter-bar-track">
+            <div id="stress-level-bar" class="zen-meter-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- Breathing Orb Guide -->
+        <div class="breathing-widget" title="Follow the orb: Inhale when expanding, hold, exhale when shrinking">
+          <div id="breathing-orb" class="breathing-orb"></div>
+          <div id="breathing-phase-text" class="breathing-text">BREATHE IN...</div>
+        </div>
+
+        <!-- Ambient Lo-Fi Generators -->
+        <div class="audio-controls">
+          <button id="ambient-rain-btn" class="ambient-pill-btn" title="Toggle Calming Rain Ambient">
+            🌧️ RAIN
+          </button>
+          <button id="ambient-vinyl-btn" class="ambient-pill-btn" title="Toggle Vinyl Warm Crackle">
+            📻 VINYL
+          </button>
+          <button id="ambient-chimes-btn" class="ambient-pill-btn" title="Toggle Zen Wind Chimes">
+            🔔 CHIMES
+          </button>
+
+          <!-- Master Volume Slider -->
+          <div class="volume-slider-box" title="Master Volume">
+            <span style="font-size: 11px;">VOL</span>
+            <input id="master-volume-slider" type="range" min="0" max="1" step="0.05" value="0.7" class="retro-slider">
+          </div>
+
+          <!-- Master Mute -->
+          <button id="master-mute-btn" class="retro-btn-sm" title="Mute/Unmute Audio">
+            🔊 SOUND ON
+          </button>
+
+          <!-- CRT Scanline Toggle -->
+          <button id="crt-toggle-btn" class="retro-btn-sm" title="Toggle CRT Screen Scanlines">
+            CRT: OFF
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CATEGORY NAVIGATION FILTER ================= -->
+  <nav class="category-nav-bar">
+    <div class="category-nav-container">
+      <div class="category-tabs" role="tablist">
+        <button class="cat-pill active" data-category="all">✨ ALL TOYS (10)</button>
+        <button class="cat-pill" data-category="spinners">🌀 SPINNERS</button>
+        <button class="cat-pill" data-category="buttons">🔘 BUTTONS & SWITCHES</button>
+        <button class="cat-pill" data-category="gears">⚙️ GEARS & CLOCKS</button>
+        <button class="cat-pill" data-category="typing">⌨️ TYPING GADGETS</button>
+        <button class="cat-pill" data-category="carving">🪵 WOOD CARVING</button>
+        <button class="cat-pill" data-category="painting">🎨 WALL PAINTING</button>
+        <button class="cat-pill" data-category="cleaning">🧽 WASH & CLEAN</button>
+        <button class="cat-pill" data-category="reading">📖 BOOK & READING</button>
+      </div>
+
+      <!-- Quick Surprise / Calming Panic Button -->
+      <button id="random-toy-btn" class="retro-btn pink-btn" title="Jump to a random calming fidget toy">
+        🎲 SURPRISE ME
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= MAIN TOYS CONTAINER ================= -->
+  <main class="toys-main-content">
+    <div class="section-headline">
+      <div id="current-category-label" class="section-title">
+        ✨ ALL FIDGET TOYS
+      </div>
+      <div class="stats-badge">
+        ZEN INTERACTIONS: <span id="zen-clicks-value">0</span>
+      </div>
+    </div>
+
+    <div class="toy-grid">
+
+      <!-- ---------------- 1. FIDGET SPINNER ---------------- -->
+      <article class="toy-card" data-category="spinners">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">PHYSICS</span>
+            <h2 class="toy-title">FIDGET SPINNER 2000</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="spinner-canvas" width="280" height="280"></canvas>
+          <div class="spinner-stats-bar">
+            <div>RPM: <span id="spinner-rpm">0</span></div>
+            <div>PEAK: <span id="spinner-peak">0</span></div>
+            <div>ROTATIONS: <span id="spinner-rotations">0</span></div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button id="spinner-flick-cw" class="retro-btn-sm cyan-glow">FLICK ↻</button>
+            <button id="spinner-flick-ccw" class="retro-btn-sm cyan-glow">FLICK ↺</button>
+            <button id="spinner-stop-btn" class="retro-btn-sm">BRAKE</button>
+          </div>
+          <div style="display: flex; gap: 5px; align-items: center;">
+            <span class="toy-instructions">SKIN:</span>
+            <button class="retro-btn-sm spinner-skin-btn selected" data-skin="classic">TRI</button>
+            <button class="retro-btn-sm spinner-skin-btn" data-skin="shuriken">NINJA</button>
+            <button class="retro-btn-sm spinner-skin-btn" data-skin="neon">DISC</button>
+            <button class="retro-btn-sm spinner-skin-btn" data-skin="clockwork">COG</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- 2. BUTTONS & SWITCHES HUB ---------------- -->
+      <article class="toy-card" data-category="buttons">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">TACTILE</span>
+            <h2 class="toy-title">SATISFYING BUTTONS HUB</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <div class="buttons-showcase-container">
+            <!-- Bubble Wrap 2.0 -->
+            <div class="bubble-wrap-panel">
+              <div class="bubble-wrap-header">
+                <span style="color: var(--cyan); font-weight: 700;">BUBBLE WRAP (DRAG OR CLICK)</span>
+                <div>POPPED: <span id="bubble-pop-count" style="color: var(--yellow);">0</span></div>
+              </div>
+              <div id="bubble-wrap-grid" class="bubble-wrap-grid"></div>
+              <div style="margin-top: 8px; text-align: right;">
+                <button id="bubble-reset-btn" class="retro-btn-sm">UNPOP ALL</button>
+              </div>
+            </div>
+
+            <!-- Mech Switch Tester Box -->
+            <div class="switch-tester-row">
+              <div class="mech-switch-box" data-switch-type="thock" data-color="#00f0ff">
+                <div class="switch-led"></div>
+                <div class="switch-keycap">T</div>
+                <div class="switch-desc">OIL KING<br><span style="color:var(--cyan)">THOCK</span></div>
+              </div>
+              <div class="mech-switch-box" data-switch-type="clicky" data-color="#00a8ff">
+                <div class="switch-led"></div>
+                <div class="switch-keycap">C</div>
+                <div class="switch-desc">MX BLUE<br><span style="color:#00a8ff">CLICK</span></div>
+              </div>
+              <div class="mech-switch-box" data-switch-type="panda" data-color="#ff2a85">
+                <div class="switch-led"></div>
+                <div class="switch-keycap">P</div>
+                <div class="switch-desc">HOLY PANDA<br><span style="color:#ff2a85">TACTILE</span></div>
+              </div>
+              <div class="mech-switch-box" data-switch-type="silent" data-color="#00ff7f">
+                <div class="switch-led"></div>
+                <div class="switch-keycap">S</div>
+                <div class="switch-desc">BOBA U4T<br><span style="color:#00ff7f">SILENT</span></div>
+              </div>
+            </div>
+
+            <!-- The Big Red Button -->
+            <div class="big-button-station">
+              <div class="big-button-stage">
+                <div id="big-button-cover" class="big-button-cover" title="Click to lift hazard safety cover">
+                  LIFT
+                </div>
+                <button id="big-red-button" class="big-red-button" aria-label="Big Red Button"></button>
+              </div>
+              <div class="big-button-readout">
+                <div id="big-button-status" class="big-button-status">SAFETY ENGAGED</div>
+                <div style="font-family: var(--font-sub); font-size: 10px; color: var(--text-muted);">
+                  PRESSES: <span id="big-button-count" style="color: var(--pink); font-weight: 700;">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aircraft Toggle Switches -->
+            <div class="toggle-array">
+              <div class="retro-toggle-item active">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div class="retro-toggle-item">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div class="retro-toggle-item active">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div class="retro-toggle-item">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div class="retro-toggle-item active">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div class="retro-toggle-item">
+                <div class="toggle-plate"><div class="toggle-lever"></div></div>
+                <div class="toggle-led"></div>
+              </div>
+              <div id="toggle-master-status" style="font-family: var(--font-sub); font-size: 9px; color: var(--green);">STANDBY</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <span class="toy-instructions">Click, drag, or flip any button for deep tactile relief.</span>
+        </div>
+      </article>
+
+      <!-- ---------------- 3. INTERLOCKING GEARS ---------------- -->
+      <article class="toy-card" data-category="gears">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">MECHANICAL</span>
+            <h2 class="toy-title">INTERLOCKING GEARS</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="gears-canvas" width="400" height="270" class="retro-canvas"></canvas>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button id="gears-motor-toggle" class="retro-btn-sm cyan-glow">MOTOR: OFF</button>
+            <input id="gears-speed-slider" type="range" min="0.005" max="0.06" step="0.005" value="0.02" class="retro-slider" title="Motor Speed">
+          </div>
+          <div style="display: flex; gap: 5px; align-items: center;">
+            <span class="toy-instructions">PRESET:</span>
+            <button class="retro-btn-sm gears-preset-btn selected" data-preset="classic">CHAIN</button>
+            <button class="retro-btn-sm gears-preset-btn" data-preset="speed">RATIO</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- 4. VINTAGE TYPEWRITER ---------------- -->
+      <article class="toy-card" data-category="typing">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">RETRO 1940</span>
+            <h2 class="toy-title">VINTAGE TYPEWRITER</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage" id="typewriter-toy-container">
+          <div class="typewriter-assembly">
+            <!-- Carriage & Paper Sheet -->
+            <div class="typewriter-platen-housing">
+              <div id="typewriter-carriage" class="typewriter-carriage-track">
+                <div id="typewriter-paper-sheet" class="typewriter-paper-sheet">
+                  <div id="typewriter-paper-text">CLICK KEYS OR TYPE ON YOUR KEYBOARD...</div>
+                </div>
+              </div>
+              <div id="typewriter-striker-bar" class="typewriter-striker-bar"></div>
+            </div>
+
+            <!-- Onscreen Typewriter Round Keys -->
+            <div class="typewriter-keyboard-chassis">
+              <div class="typewriter-keys-row">
+                <button class="typewriter-key" data-char="Q">Q</button>
+                <button class="typewriter-key" data-char="W">W</button>
+                <button class="typewriter-key" data-char="E">E</button>
+                <button class="typewriter-key" data-char="R">R</button>
+                <button class="typewriter-key" data-char="T">T</button>
+                <button class="typewriter-key" data-char="Y">Y</button>
+                <button class="typewriter-key" data-char="U">U</button>
+                <button class="typewriter-key" data-char="I">I</button>
+                <button class="typewriter-key" data-char="O">O</button>
+                <button class="typewriter-key" data-char="P">P</button>
+              </div>
+              <div class="typewriter-keys-row">
+                <button class="typewriter-key" data-char="A">A</button>
+                <button class="typewriter-key" data-char="S">S</button>
+                <button class="typewriter-key" data-char="D">D</button>
+                <button class="typewriter-key" data-char="F">F</button>
+                <button class="typewriter-key" data-char="G">G</button>
+                <button class="typewriter-key" data-char="H">H</button>
+                <button class="typewriter-key" data-char="J">J</button>
+                <button class="typewriter-key" data-char="K">K</button>
+                <button class="typewriter-key" data-char="L">L</button>
+                <button class="typewriter-key key-wide" data-char="BACKSPACE">DEL</button>
+              </div>
+              <div class="typewriter-keys-row">
+                <button class="typewriter-key" data-char="Z">Z</button>
+                <button class="typewriter-key" data-char="X">X</button>
+                <button class="typewriter-key" data-char="C">C</button>
+                <button class="typewriter-key key-space" data-char="SPACE">SPACE</button>
+                <button class="typewriter-key" data-char="B">B</button>
+                <button class="typewriter-key" data-char="N">N</button>
+                <button class="typewriter-key" data-char="M">M</button>
+                <button class="typewriter-key key-wide" data-char="RETURN">CR ↵</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px;">
+            <button id="typewriter-return-lever" class="retro-btn-sm cyan-glow">LEVER ↵</button>
+            <button id="typewriter-ink-toggle" class="retro-btn-sm">RIBBON: BLACK</button>
+            <button id="typewriter-tear-paper" class="retro-btn-sm">TEAR PAPER</button>
+          </div>
+          <span class="toy-instructions">Ring the bell at the margin!</span>
+        </div>
+      </article>
+
+      <!-- ---------------- 5. MECHANICAL KEYBOARD ---------------- -->
+      <article class="toy-card" data-category="typing">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">60% RGB</span>
+            <h2 class="toy-title">CUSTOM MECH KEYBOARD</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage" id="mech-keyboard-container">
+          <div class="mech-keyboard-chassis">
+            <div id="kb-board-grid" class="kb-board-grid rgb-cyan">
+              <!-- Dynamically populated 60% layout -->
+            </div>
+            <div id="kb-preview-stream" class="kb-preview-bar">TYPE FREELY TO FIDGET...</div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <span class="toy-instructions">SWITCH:</span>
+            <button class="retro-btn-sm kb-sound-btn selected" data-sound="thock">THOCK</button>
+            <button class="retro-btn-sm kb-sound-btn" data-sound="clicky">CLICK</button>
+            <button class="retro-btn-sm kb-sound-btn" data-sound="panda">PANDA</button>
+            <button class="retro-btn-sm kb-sound-btn" data-sound="silent">SILENT</button>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <span class="toy-instructions">RGB:</span>
+            <button class="retro-btn-sm kb-rgb-btn selected" data-rgb="cyan">CYAN</button>
+            <button class="retro-btn-sm kb-rgb-btn" data-rgb="rainbow">WAVE</button>
+            <button class="retro-btn-sm kb-rgb-btn" data-rgb="ripple">RIPPLE</button>
+          </div>
+          <div style="font-family: var(--font-sub); font-size: 10px; color: var(--yellow);">
+            WPM: <span id="kb-wpm-count">0</span> | KEYS: <span id="kb-keystroke-count">0</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- 6. WOOD CARVING & WHITTLING ---------------- -->
+      <article class="toy-card" data-category="carving">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">CRAFT</span>
+            <h2 class="toy-title">WOOD CARVING & WHITTLING</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="wood-canvas" width="400" height="260" class="retro-canvas"></canvas>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <span class="toy-instructions">TOOL:</span>
+            <button class="retro-btn-sm wood-tool-btn selected" data-tool="knife">KNIFE</button>
+            <button class="retro-btn-sm wood-tool-btn" data-tool="chisel">CHISEL</button>
+            <button class="retro-btn-sm wood-tool-btn" data-tool="sandpaper">SAND</button>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <span class="toy-instructions">TIMBER:</span>
+            <button class="retro-btn-sm wood-type-btn selected" data-wood="pine">PINE</button>
+            <button class="retro-btn-sm wood-type-btn" data-wood="mahogany">MAHOGANY</button>
+            <button id="wood-reset-btn" class="retro-btn-sm">NEW LOG</button>
+          </div>
+          <div style="font-family: var(--font-sub); font-size: 10px; color: var(--yellow);">
+            SHAVINGS: <span id="wood-chips-count">0</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- 7. WALL PAINTING & GRAFFITI ---------------- -->
+      <article class="toy-card" data-category="painting">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">ART</span>
+            <h2 class="toy-title">WALL PAINTING & ROLLER</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="wall-canvas" width="400" height="260" class="retro-canvas"></canvas>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <span class="toy-instructions">TOOL:</span>
+            <button class="retro-btn-sm wall-tool-btn selected" data-tool="roller">ROLLER</button>
+            <button class="retro-btn-sm wall-tool-btn" data-tool="spray">SPRAY CAN</button>
+            <button class="retro-btn-sm wall-tool-btn" data-tool="washer">POWER WASH</button>
+          </div>
+          <div style="display: flex; gap: 5px; align-items: center;">
+            <button class="retro-btn-sm wall-color-swatch selected" data-color="#00f0ff" style="color:#00f0ff">■ CYAN</button>
+            <button class="retro-btn-sm wall-color-swatch" data-color="#ff2a85" style="color:#ff2a85">■ PINK</button>
+            <button class="retro-btn-sm wall-color-swatch" data-color="#ffe600" style="color:#ffe600">■ YELLOW</button>
+            <button class="retro-btn-sm wall-color-swatch" data-color="#00ff7f" style="color:#00ff7f">■ GREEN</button>
+            <button id="wall-clean-btn" class="retro-btn-sm">RESET</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- 8. CAR CLEANING & DETAILING ---------------- -->
+      <article class="toy-card" data-category="cleaning">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">WASH</span>
+            <h2 class="toy-title">CAR CLEANING & PRESSURE WASH</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="car-canvas" width="400" height="260" class="retro-canvas"></canvas>
+          <!-- Cleanliness Meter -->
+          <div style="width: 100%; max-width: 400px; margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-sub); font-size: 10px; margin-bottom: 4px;">
+              <span>CLEANLINESS SPARKLE:</span>
+              <span id="car-clean-percent" style="color: var(--cyan); font-weight: 700;">0%</span>
+            </div>
+            <div style="width: 100%; height: 8px; background: #000; border: 1px solid #282c37;">
+              <div id="car-clean-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00f0ff, #00ff7f); transition: width 0.2s ease;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <span class="toy-instructions">STEP:</span>
+            <button class="retro-btn-sm car-tool-btn selected" data-tool="washer">1. WASHER</button>
+            <button class="retro-btn-sm car-tool-btn" data-tool="foam">2. FOAM</button>
+            <button class="retro-btn-sm car-tool-btn" data-tool="sponge">3. SPONGE</button>
+            <button class="retro-btn-sm car-tool-btn" data-tool="buffer">4. POLISH ✨</button>
+          </div>
+          <button id="car-mud-btn" class="retro-btn-sm">MUDDY AGAIN</button>
+        </div>
+      </article>
+
+      <!-- ---------------- 9. WINDOW CLEANING & SQUEEGEE ---------------- -->
+      <article class="toy-card" data-category="cleaning">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">COZY</span>
+            <h2 class="toy-title">RAINY WINDOW & SQUEEGEE</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage">
+          <canvas id="window-canvas" width="400" height="260" class="retro-canvas"></canvas>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <span class="toy-instructions">TOOL:</span>
+            <button class="retro-btn-sm window-tool-btn selected" data-tool="squeegee">SQUEEGEE</button>
+            <button class="retro-btn-sm window-tool-btn" data-tool="finger">FINGER DOODLE</button>
+          </div>
+          <button id="window-breathe-btn" class="retro-btn-sm cyan-glow">BREATHE FOG 💨</button>
+        </div>
+      </article>
+
+      <!-- ---------------- 10. BOOK PAGE TURNER ---------------- -->
+      <article class="toy-card" data-category="reading">
+        <div class="toy-header">
+          <div class="toy-title-wrap">
+            <span class="toy-badge">JOURNAL</span>
+            <h2 class="toy-title">TURNING PAGES OVER OF A BOOK</h2>
+          </div>
+          <div class="toy-actions">
+            <button class="retro-btn-sm focus-toy-btn" title="Focus Mode">🔍 FOCUS</button>
+          </div>
+        </div>
+
+        <div class="toy-stage" id="book-toy-container">
+          <div class="book-stage-wrapper">
+            <div id="vintage-book" class="vintage-book">
+              <!-- Left Page Half -->
+              <div id="book-page-left" class="book-page-half left-page">
+                <!-- Dynamically rendered -->
+              </div>
+              <!-- Right Page Half -->
+              <div id="book-page-right" class="book-page-half right-page">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toy-controls-bar">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button id="book-prev-btn" class="retro-btn-sm cyan-glow">◂ PREV PAGE</button>
+            <button id="book-next-btn" class="retro-btn-sm cyan-glow">NEXT PAGE ▸</button>
+          </div>
+          <span id="book-page-number" class="toy-instructions" style="color: var(--cyan); font-weight: 700;">PAGES 1 - 2 / 8</span>
+          <span class="toy-instructions">Click outer corner to flip</span>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="app-footer">
+    <p>⚡ RETRO ZEN FIDGET HUB // CRAFTED FOR TOTAL STRESS RELIEF & MINDFULNESS ⚡</p>
+    <p style="margin-top: 6px; color: #64748b;">All sounds procedurally synthesized with Web Audio API. 100% Client-Side. No external dependencies.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="toys/spinner.js"></script>
+  <script src="toys/buttons.js"></script>
+  <script src="toys/gears.js"></script>
+  <script src="toys/typewriter.js"></script>
+  <script src="toys/keyboard.js"></script>
+  <script src="toys/woodcarving.js"></script>
+  <script src="toys/wallpainting.js"></script>
+  <script src="toys/carcleaning.js"></script>
+  <script src="toys/windowcleaning.js"></script>
+  <script src="toys/bookturner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

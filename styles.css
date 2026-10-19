@@ -1,0 +1,1371 @@
+/* ===================================================================
+   RETRO ZEN: ANTI-STRESS DIGITAL FIDGET HUB
+   Theme: Vintage, Pixelated, Colorful, Satisfying Buttons
+   Palette: Dark Grey Body (#14161b) with Electric Cyan Secondary (#00f0ff)
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Pixelify+Sans:wght@400;600;700&display=swap');
+
+:root {
+  --bg-main: #14161b;
+  --bg-card: #1c1f26;
+  --bg-card-hover: #222630;
+  --bg-darker: #0d0f13;
+  --border-color: #2e3442;
+  --cyan: #00f0ff;
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  --cyan-dark: #05828c;
+  --pink: #ff2a85;
+  --yellow: #ffe600;
+  --green: #00ff7f;
+  --purple: #a855f7;
+  --orange: #ff7a00;
+  --white: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-sub: 'Silkscreen', monospace;
+  --font-typewriter: 'VT323', monospace;
+  --font-ui: 'Pixelify Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--white);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(rgba(20, 22, 27, 0.95), rgba(20, 22, 27, 0.95)),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.25) 2px, rgba(0, 0, 0, 0.25) 4px);
+  background-attachment: fixed;
+}
+
+/* ---------------- CRT SCANLINE OVERLAY ---------------- */
+#crt-scanline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+  background-size: 100% 4px, 6px 100%;
+}
+
+#crt-scanline-overlay.active {
+  opacity: 1;
+}
+
+/* ---------------- SATISFYING BUTTONS CORE ---------------- */
+.retro-btn {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #282d38;
+  border: 3px solid #000;
+  border-radius: 4px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000, 0 6px 12px rgba(0,0,0,0.5);
+  transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  outline: none;
+}
+
+.retro-btn:hover {
+  background-color: #353b49;
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #000, 0 8px 14px rgba(0, 240, 255, 0.2);
+}
+
+.retro-btn:active, .retro-btn.pressed {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #000, 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.retro-btn.cyan-glow {
+  background-color: #05828c;
+  color: #000;
+  background: linear-gradient(180deg, #00f0ff 0%, #05a5b5 100%);
+  border-color: #000;
+  font-weight: 900;
+  box-shadow: 0 4px 0 #024b52, 0 4px 14px rgba(0, 240, 255, 0.5);
+}
+
+.retro-btn.cyan-glow:hover {
+  background: linear-gradient(180deg, #33f3ff 0%, #00e1f5 100%);
+  box-shadow: 0 5px 0 #024b52, 0 6px 18px rgba(0, 240, 255, 0.7);
+}
+
+.retro-btn.cyan-glow:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #024b52;
+}
+
+.retro-btn.pink-btn {
+  background: linear-gradient(180deg, #ff2a85 0%, #c41860 100%);
+  color: #fff;
+  box-shadow: 0 4px 0 #570627;
+}
+
+.retro-btn.pink-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #570627;
+}
+
+.retro-btn-sm {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  padding: 5px 10px;
+  border: 2px solid #000;
+  border-radius: 3px;
+  background: #252932;
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #000;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.retro-btn-sm:hover {
+  background: #333946;
+  color: var(--cyan);
+}
+
+.retro-btn-sm:active, .retro-btn-sm.selected {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #000;
+  background: var(--cyan);
+  color: #000;
+  font-weight: 700;
+}
+
+/* ---------------- HEADER BAR ---------------- */
+.app-header {
+  background-color: rgba(22, 25, 32, 0.95);
+  border-bottom: 4px solid #000;
+  box-shadow: 0 6px 0 rgba(0, 240, 255, 0.15), 0 10px 30px rgba(0,0,0,0.6);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.header-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  background: #000;
+  border: 3px solid var(--cyan);
+  box-shadow: 3px 3px 0 var(--pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  animation: pulseNeon 2s infinite alternate;
+}
+
+@keyframes pulseNeon {
+  0% { box-shadow: 3px 3px 0 var(--pink), 0 0 10px rgba(0,240,255,0.4); }
+  100% { box-shadow: 3px 3px 0 var(--yellow), 0 0 20px rgba(0,240,255,0.8); }
+}
+
+.brand-title {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  letter-spacing: 0.8px;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000, 0 0 12px var(--cyan-glow);
+}
+
+.brand-title span {
+  color: var(--cyan);
+}
+
+.brand-subtitle {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Header Utilities (Zen Meter, Breathing, Audio) */
+.header-utilities {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* Zen Stress Meter */
+.zen-meter-box {
+  background: #111317;
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+  min-width: 170px;
+}
+
+.zen-meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sub);
+  font-size: 10px;
+}
+
+.zen-meter-labels .label {
+  color: var(--text-muted);
+}
+
+.zen-meter-labels .value {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.zen-meter-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #252830;
+  border: 1px solid #000;
+  overflow: hidden;
+  position: relative;
+}
+
+.zen-meter-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--green) 0%, var(--yellow) 60%, var(--pink) 100%);
+  transition: width 0.3s ease;
+}
+
+/* Breathing Orb Mini Guide */
+.breathing-widget {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111317;
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 6px 14px;
+}
+
+.breathing-orb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  transition: transform 4s ease-in-out, background-color 4s ease;
+}
+
+.breathing-orb.phase-inhale {
+  transform: scale(1.6);
+  background-color: var(--cyan);
+  box-shadow: 0 0 18px var(--cyan);
+}
+
+.breathing-orb.phase-hold {
+  transform: scale(1.6);
+  background-color: var(--yellow);
+  box-shadow: 0 0 18px var(--yellow);
+}
+
+.breathing-orb.phase-exhale {
+  transform: scale(0.8);
+  background-color: var(--pink);
+  box-shadow: 0 0 8px var(--pink);
+}
+
+.breathing-text {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  color: var(--cyan);
+  font-weight: 700;
+  min-width: 110px;
+}
+
+/* Sound & Ambient Mixer */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ambient-pill-btn {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  padding: 6px 10px;
+  background: #222630;
+  color: #94a3b8;
+  border: 2px solid #000;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.ambient-pill-btn:hover {
+  color: #fff;
+  border-color: var(--cyan);
+}
+
+.ambient-pill-btn.active {
+  background: #00f0ff;
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+}
+
+/* Volume Slider */
+.volume-slider-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.retro-slider {
+  -webkit-appearance: none;
+  width: 70px;
+  height: 6px;
+  background: #111317;
+  border: 1px solid #000;
+  outline: none;
+}
+
+.retro-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--cyan);
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+/* ---------------- CATEGORY NAVIGATION BAR ---------------- */
+.category-nav-bar {
+  background-color: #171920;
+  border-bottom: 3px solid #000;
+  padding: 12px 24px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.5);
+}
+
+.category-nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.category-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.cat-pill {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 14px;
+  background-color: #21252f;
+  color: #cbd5e1;
+  border: 2px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 3px 0 #000;
+  transition: transform 0.08s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.cat-pill:hover {
+  background-color: #2c3240;
+  color: var(--cyan);
+  transform: translateY(-1px);
+}
+
+.cat-pill:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #000;
+}
+
+.cat-pill.active {
+  background-color: var(--cyan);
+  color: #000;
+  border-color: #000;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+/* ---------------- MAIN TOYS GRID ---------------- */
+.toys-main-content {
+  max-width: 1440px;
+  margin: 24px auto;
+  padding: 0 24px 60px 24px;
+}
+
+.section-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed #2d3340;
+}
+
+.section-title {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats-badge {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: #111317;
+  padding: 4px 10px;
+  border: 2px solid #000;
+  border-radius: 3px;
+}
+
+.stats-badge span {
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.toy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 500px) {
+  .toy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- TOY CARD ---------------- */
+.toy-card {
+  background-color: var(--bg-card);
+  border: 4px solid #000;
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 #0d0f13, inset 0 1px 0 rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.toy-card:hover {
+  border-color: #3b4252;
+  box-shadow: 8px 8px 0 #0d0f13, 0 0 20px rgba(0, 240, 255, 0.12);
+}
+
+.toy-card.focused {
+  grid-column: 1 / -1;
+  border-color: var(--cyan);
+  box-shadow: 10px 10px 0 #000, 0 0 35px rgba(0, 240, 255, 0.35);
+  animation: focusPulse 0.4s ease;
+}
+
+@keyframes focusPulse {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1.0); }
+}
+
+.toy-card.highlight-pulse {
+  animation: pulseCard 1.2s ease;
+}
+
+@keyframes pulseCard {
+  0%, 100% { border-color: #000; }
+  50% { border-color: var(--yellow); box-shadow: 0 0 30px var(--yellow); }
+}
+
+.toy-header {
+  background-color: #16181f;
+  border-bottom: 3px solid #000;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toy-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toy-badge {
+  font-family: var(--font-sub);
+  font-size: 9px;
+  padding: 3px 6px;
+  background: #000;
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  border-radius: 2px;
+}
+
+.toy-title {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.toy-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toy-stage {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #131418;
+  position: relative;
+  min-height: 290px;
+}
+
+.toy-controls-bar {
+  background-color: #171920;
+  border-top: 3px solid #000;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toy-instructions {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Screen shake effect */
+.screen-shake {
+  animation: shakeAnim 0.35s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shakeAnim {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* ---------------- TOY 1: FIDGET SPINNER ---------------- */
+#spinner-canvas {
+  cursor: grab;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a1c22 0%, #121317 70%);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+#spinner-canvas:active {
+  cursor: grabbing;
+}
+
+.spinner-stats-bar {
+  display: flex;
+  gap: 14px;
+  font-family: var(--font-sub);
+  font-size: 11px;
+  background: #0e0f12;
+  border: 2px solid #000;
+  padding: 6px 14px;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.spinner-stats-bar span {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+/* ---------------- TOY 2: SATISFYING BUTTONS & SWITCHES ---------------- */
+.buttons-showcase-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 2A: Bubble Wrap */
+.bubble-wrap-panel {
+  background: #1b1e25;
+  border: 3px solid #000;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.bubble-wrap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: var(--font-sub);
+  font-size: 10px;
+}
+
+.bubble-wrap-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}
+
+.bubble-cell {
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0%, rgba(0,240,255,0.4) 40%, #056670 100%);
+  border: 2px solid #000;
+  border-radius: 50%;
+  box-shadow: 0 3px 0 #000, inset 0 2px 4px rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: transform 0.05s ease, filter 0.05s ease;
+}
+
+.bubble-cell:hover:not(.popped) {
+  filter: brightness(1.2);
+  transform: scale(1.06);
+}
+
+.bubble-cell:active:not(.popped) {
+  transform: scale(0.92);
+}
+
+.bubble-cell.popped {
+  background: #14171d;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.9);
+  border-color: #282d38;
+  cursor: default;
+  position: relative;
+}
+
+.bubble-cell.popped::after {
+  content: 'x';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333a48;
+  font-size: 10px;
+  font-family: var(--font-pixel);
+}
+
+/* 2B: Mech Switch Tester Pad */
+.switch-tester-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.mech-switch-box {
+  background: #252934;
+  border: 3px solid #000;
+  border-radius: 4px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000;
+  position: relative;
+}
+
+.mech-switch-box:hover {
+  background: #2d3240;
+}
+
+.switch-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #394050;
+  border: 1px solid #000;
+}
+
+.switch-led.lit {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.switch-keycap {
+  width: 44px;
+  height: 44px;
+  background: #1c1f26;
+  border: 2px solid #000;
+  border-radius: 4px;
+  box-shadow: 0 6px 0 #000, inset 0 2px 0 rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  color: var(--white);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.switch-keycap.pressed {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 #000;
+}
+
+.switch-desc {
+  font-family: var(--font-sub);
+  font-size: 9px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* 2C: The Big Red Button */
+.big-button-station {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #181a20;
+  border: 3px solid #000;
+  border-radius: 4px;
+  padding: 12px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Yellow Hazard Stripes */
+.big-button-station::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, #ffe600, #ffe600 8px, #000 8px, #000 16px);
+}
+
+.big-button-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 80px;
+}
+
+.big-button-cover {
+  position: absolute;
+  width: 74px;
+  height: 60px;
+  background: rgba(255, 230, 0, 0.35);
+  border: 3px solid #ffe600;
+  border-radius: 6px;
+  z-index: 10;
+  cursor: pointer;
+  transform-origin: top center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #ffe600;
+}
+
+.big-button-cover.cover-open {
+  transform: rotateX(120deg) translateY(-20px);
+}
+
+.big-red-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff4d6d 0%, #c9184a 70%, #590d22 100%);
+  border: 4px solid #000;
+  box-shadow: 0 8px 0 #3a0010, 0 12px 20px rgba(0,0,0,0.7);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+  outline: none;
+}
+
+.big-red-button:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 #3a0010;
+}
+
+.big-button-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.big-button-status {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  color: var(--cyan);
+}
+
+/* 2D: Aircraft Toggle Grid */
+.toggle-array {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-around;
+  background: #14161c;
+  border: 3px solid #000;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.retro-toggle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.toggle-plate {
+  width: 28px;
+  height: 48px;
+  background: #252932;
+  border: 2px solid #000;
+  border-radius: 3px;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.toggle-lever {
+  position: absolute;
+  left: 5px;
+  bottom: 6px;
+  width: 14px;
+  height: 20px;
+  background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+  border: 2px solid #000;
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #000;
+  transition: transform 0.1s ease;
+}
+
+.retro-toggle-item.active .toggle-lever {
+  transform: translateY(-16px);
+  background: linear-gradient(180deg, var(--cyan) 0%, #0284c7 100%);
+}
+
+.toggle-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #333a48;
+  border: 1px solid #000;
+}
+
+.retro-toggle-item.active .toggle-led {
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+/* ---------------- TOY 3: GEARS & CLOCKWORK ---------------- */
+#gears-canvas {
+  background: #111317;
+  border: 3px solid #000;
+  border-radius: 4px;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+  cursor: grab;
+}
+
+#gears-canvas:active {
+  cursor: grabbing;
+}
+
+/* ---------------- TOY 4: VINTAGE TYPEWRITER ---------------- */
+.typewriter-assembly {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.typewriter-platen-housing {
+  width: 100%;
+  background: #1b1e26;
+  border: 4px solid #000;
+  border-radius: 6px 6px 0 0;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.typewriter-carriage-track {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.05s linear;
+}
+
+.typewriter-carriage-track.returning {
+  transition: transform 0.22s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.typewriter-paper-sheet {
+  width: 320px;
+  height: 140px;
+  background: #fbf7ee;
+  border: 2px solid #3c3426;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 0 15px rgba(220, 205, 175, 0.4);
+  padding: 14px;
+  font-family: var(--font-typewriter);
+  font-size: 19px;
+  color: #1a1815;
+  line-height: 1.25;
+  overflow-y: hidden;
+  position: relative;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.typewriter-paper-sheet.paper-tear {
+  animation: tearPaperAnim 0.35s ease;
+}
+
+@keyframes tearPaperAnim {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+.typewriter-striker-bar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 8px;
+  height: 36px;
+  background: #94a3b8;
+  border: 2px solid #000;
+  transform: translateX(-50%) translateY(20px);
+  transition: transform 0.04s ease;
+}
+
+.typewriter-striker-bar.strike-active {
+  transform: translateX(-50%) translateY(0);
+}
+
+.typewriter-keyboard-chassis {
+  width: 100%;
+  background: #232733;
+  border: 4px solid #000;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 6px 0 #000;
+}
+
+.typewriter-keys-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.typewriter-key {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #15171d;
+  border: 2px solid #94a3b8;
+  box-shadow: 0 3px 0 #000;
+  color: #fff;
+  font-family: var(--font-typewriter);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.typewriter-key:hover {
+  background: #2b303e;
+  border-color: var(--cyan);
+}
+
+.typewriter-key:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #000;
+}
+
+.typewriter-key.key-wide {
+  border-radius: 4px;
+  width: auto;
+  padding: 0 12px;
+  font-size: 13px;
+  font-family: var(--font-sub);
+}
+
+.typewriter-key.key-space {
+  border-radius: 4px;
+  width: 150px;
+}
+
+/* ---------------- TOY 5: MECHANICAL KEYBOARD ---------------- */
+.mech-keyboard-chassis {
+  width: 100%;
+  background: #181a20;
+  border: 4px solid #000;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 8px 0 #000, 0 12px 24px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.kb-board-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: #0f1013;
+  border: 2px solid #000;
+  border-radius: 4px;
+  transition: box-shadow 0.3s ease;
+}
+
+.kb-board-grid.rgb-cyan {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.kb-board-grid.rgb-rainbow {
+  animation: rainbowBorder 4s linear infinite;
+}
+
+@keyframes rainbowBorder {
+  0% { box-shadow: 0 0 15px #ff2a85; }
+  33% { box-shadow: 0 0 15px #ffe600; }
+  66% { box-shadow: 0 0 15px #00ff7f; }
+  100% { box-shadow: 0 0 15px #00f0ff; }
+}
+
+.kb-row {
+  display: flex;
+  gap: 5px;
+}
+
+.kb-key {
+  height: 34px;
+  background: #242833;
+  border: 2px solid #000;
+  border-radius: 3px;
+  box-shadow: 0 4px 0 #0d0e12, inset 0 1px 0 rgba(255,255,255,0.25);
+  color: #e2e8f0;
+  font-family: var(--font-sub);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s ease;
+}
+
+.kb-key:hover {
+  background: #313745;
+  color: var(--cyan);
+}
+
+.kb-key.active-press {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #000;
+  background: var(--cyan);
+  color: #000;
+  font-weight: 700;
+}
+
+.kb-key.glow-ripple {
+  background: var(--pink) !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px var(--pink);
+}
+
+.kb-preview-bar {
+  margin-top: 10px;
+  background: #111317;
+  border: 2px solid #000;
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-family: var(--font-typewriter);
+  font-size: 17px;
+  color: var(--cyan);
+  min-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ---------------- TOYS 6, 7, 8, 9 CANVAS COMMON ---------------- */
+.retro-canvas {
+  border: 3px solid #000;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.7), 0 4px 0 #000;
+  cursor: crosshair;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------------- TOY 10: BOOK PAGE TURNER ---------------- */
+.book-stage-wrapper {
+  perspective: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.vintage-book {
+  width: 460px;
+  height: 290px;
+  background: #3c2415;
+  border: 4px solid #000;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.8);
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.vintage-book::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 14px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(20,10,5,0.8) 50%, rgba(0,0,0,0.6) 100%);
+  z-index: 5;
+}
+
+.book-page-half {
+  flex: 1;
+  background: #fbf6ec;
+  border: 1px solid #c9bca6;
+  padding: 14px 18px;
+  color: #2b241c;
+  font-family: var(--font-typewriter);
+  font-size: 15px;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 12px rgba(200, 180, 150, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.book-page-half.left-page {
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset -6px 0 10px rgba(0,0,0,0.15);
+}
+
+.book-page-half.right-page {
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 6px 0 10px rgba(0,0,0,0.15);
+}
+
+/* Page corner curl fold */
+.book-page-half.right-page::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-width: 0 0 18px 18px;
+  border-style: solid;
+  border-color: transparent transparent #c9bca6 #fbf6ec;
+  box-shadow: -2px -2px 4px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.vintage-book.flipping-forward .right-page {
+  animation: pageFlipForward 0.28s ease-in-out;
+}
+
+.vintage-book.flipping-backward .left-page {
+  animation: pageFlipBackward 0.28s ease-in-out;
+}
+
+@keyframes pageFlipForward {
+  0% { transform: rotateY(0deg); transform-origin: left center; }
+  50% { transform: rotateY(-90deg); transform-origin: left center; }
+  100% { transform: rotateY(0deg); transform-origin: left center; }
+}
+
+@keyframes pageFlipBackward {
+  0% { transform: rotateY(0deg); transform-origin: right center; }
+  50% { transform: rotateY(90deg); transform-origin: right center; }
+  100% { transform: rotateY(0deg); transform-origin: right center; }
+}
+
+.book-chapter {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #8b4513;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.book-pixel-divider {
+  text-align: center;
+  color: #bfa181;
+  font-size: 11px;
+  margin: 8px 0;
+}
+
+.book-quote {
+  font-style: italic;
+  color: #4a3828;
+  border-left: 3px solid #8b4513;
+  padding-left: 8px;
+  margin: 6px 0;
+}
+
+.breath-guide-box {
+  background: rgba(220, 205, 180, 0.4);
+  border: 1px dashed #8b4513;
+  padding: 8px;
+  border-radius: 3px;
+  margin: 6px 0;
+}
+
+.breath-guide-box .step-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 3px 0;
+}
+
+.breath-guide-box .step-num {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: #8b4513;
+  font-size: 11px;
+}
+
+.zen-circle-art {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px dashed #8b4513;
+  margin: 10px auto;
+  opacity: 0.7;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.haiku-box {
+  background: rgba(220, 205, 180, 0.4);
+  border-left: 3px solid #8b4513;
+  padding: 8px 12px;
+  margin: 8px 0;
+  font-style: italic;
+}
+
+/* ---------------- PIXEL SPARKS PARTICLES ---------------- */
+.pixel-spark {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #000;
+  pointer-events: none;
+  z-index: 99999;
+  animation: sparkFly 0.45s ease-out forwards;
+}
+
+@keyframes sparkFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* ---------------- FOOTER ---------------- */
+.app-footer {
+  background: #101216;
+  border-top: 4px solid #000;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-sub);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.app-footer a {
+  color: var(--cyan);
+  text-decoration: none;
+}
